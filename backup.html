@@ -1,0 +1,52 @@
+<HTML>
+    <!-- include A-Frame obviously -->
+    <script src="https://aframe.io/releases/0.6.0/aframe.min.js"></script> 
+    <script src="https://cdn.rawgit.com/jeromeetienne/AR.js/1.5.0/aframe/build/aframe-ar.js"> </script>
+    <script>
+      console.log('ahlo')
+      window.addEventListener('camera-init', (data) => {
+          console.log('camera-init', data);
+      })
+    
+      window.addEventListener('camera-error', (error) => {
+          console.log('camera-error', error);
+      })
+    
+    AFRAME.registerComponent('registerevents', {
+      init: function () {
+        var marker = this.el;
+    
+        marker.addEventListener('markerFound', function() {
+          var markerId = marker.id;
+          console.log('markerFound', markerId);
+          // TODO: Add your own code here to react to the marker being found.
+        });
+    
+        marker.addEventListener('markerLost', function() {
+          var markerId = marker.id;
+          console.log('markerLost', markerId);
+          // TODO: Add your own code here to react to the marker being lost.
+        });
+      }
+    });
+    </script>
+    
+    
+    <body style='margin : 0px; overflow: hidden;'>
+        <a-scene embedded arjs>
+            <a-assets>
+                   <video id="video" loop="true" src="http://localhost:3000/video.mp4">
+            </a-assets>
+       
+       <a-marker preset="hiro" emitevents="true">
+         <a-video src="#video" width="8" height="4.5" position="0 0 0"></a-video>
+       </a-marker>
+       <a-entity camera></a-entity> 
+       </a-scene>
+    
+    
+    
+       
+    </body>
+    
+    </HTML>
